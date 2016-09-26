@@ -17,9 +17,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	final int END_STATE = 2;
 	int currentState = MENU_STATE;
 	Font titleFont;
+	Font titleFont2;
+	Rocketship league = new Rocketship(250, 700, 50, 50);
 	GamePanel(){
 	time = new Timer(1000/60, this);	
 	titleFont= new Font ("Arial", Font.PLAIN, 48);
+	titleFont2= new Font ("Arial", Font.PLAIN, 20);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -53,14 +56,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, LeagueInvaders.height, LeagueInvaders.width);
 		g.setColor(Color.GREEN);
 		g.setFont(titleFont);
-		g.drawString("LeagueInvaders!!", 250, 100);
-		
+		g.drawString("LEAGUEINVADERS!", 40, 100);
+		g.setFont(titleFont2);
+		g.drawString("Press ENTER to start", 130, 300);
+		g.drawString("Press SPACE for instructions!!", 100, 500);
 	}
 	void drawGameState(Graphics g){
 		
 	}
 	void drawEndState(Graphics g){
-		
+		g.setColor(Color.RED);
+		g.fillRect(0, 0, LeagueInvaders.height, LeagueInvaders.width);
+		g.setColor(Color.WHITE);
+		g.setFont(titleFont);
+		g.drawString("GAME OVER!!", 60, 100);
+		g.setFont(titleFont2);
+		g.drawString("You Killed zero aliens", 130, 300);
+		g.drawString("Press BACKSPACE to Resart", 100, 500);
 	}
 public void paintComponent(Graphics g){
 	if(currentState == MENU_STATE){

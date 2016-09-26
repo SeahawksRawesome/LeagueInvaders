@@ -3,8 +3,8 @@ import javax.swing.JFrame;
 public class LeagueInvaders {
 
 	JFrame f1;
-	static final int height = 800;
-	static final int width = 500;
+	static final int height = 500;
+	static final int width = 800;
 	GamePanel invader;
 	//League Invaders Pt.1 
 	//Runner Class and Window
@@ -25,11 +25,12 @@ LeagueInvaders(){
 	f1 = new JFrame();
 	f1.setVisible(true);
 	f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	f1.setSize(width, height);
+	f1.setSize(height, width);
 	 invader = new GamePanel();
 	 f1.add(invader);	
 	 invader.startGame();
 	 f1.addKeyListener(invader);
+	 
 }
 	
 }

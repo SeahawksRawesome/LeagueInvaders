@@ -7,9 +7,9 @@ public class GameObject {
 	int height;
 	
 	void update(){
-		x++;
+		
 	}
 	void draw(Graphics g){
-		g.fillRect(x, y, 100, 100);
+		
 	}
 }
