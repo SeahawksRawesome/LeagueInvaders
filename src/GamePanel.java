@@ -19,39 +19,44 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font titleFont;
 	Font titleFont2;
 	Rocketship league = new Rocketship(250, 700, 50, 50);
-	GamePanel(){
-	time = new Timer(1000/60, this);	
-	titleFont= new Font ("Arial", Font.PLAIN, 48);
-	titleFont2= new Font ("Arial", Font.PLAIN, 20);
+	
+
+	GamePanel() {
+		time = new Timer(1000 / 60, this);
+		titleFont = new Font("Arial", Font.PLAIN, 48);
+		titleFont2 = new Font("Arial", Font.PLAIN, 20);
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		repaint();
-		if(currentState == MENU_STATE){
+		if (currentState == MENU_STATE) {
 			updateMenuState();
-		}else if(currentState == GAME_STATE){
+		} else if (currentState == GAME_STATE) {
 			updateGameState();
-		}else if(currentState == END_STATE){
+		} else if (currentState == END_STATE) {
 			updateEndState();
 		}
 
-		
-		
 	}
-	
-	void startGame(){
+
+	void startGame() {
 		time.start();
 	}
-	void updateMenuState(){
-		
+
+	void updateMenuState() {
+
 	}
-	void updateGameState(){
-		
+
+	void updateGameState() {
+		league.update();
 	}
-	void updateEndState(){
-		
+
+	void updateEndState() {
+
 	}
-	void drawMenuState(Graphics g){
+
+	void drawMenuState(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, LeagueInvaders.height, LeagueInvaders.width);
 		g.setColor(Color.GREEN);
@@ -61,10 +66,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("Press ENTER to start", 130, 300);
 		g.drawString("Press SPACE for instructions!!", 100, 500);
 	}
-	void drawGameState(Graphics g){
-		
+
+	void drawGameState(Graphics g) {
+		league.draw(g);
 	}
-	void drawEndState(Graphics g){
+
+	void drawEndState(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, LeagueInvaders.height, LeagueInvaders.width);
 		g.setColor(Color.WHITE);
@@ -74,37 +81,79 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.drawString("You Killed zero aliens", 130, 300);
 		g.drawString("Press BACKSPACE to Resart", 100, 500);
 	}
-public void paintComponent(Graphics g){
-	if(currentState == MENU_STATE){
-		drawMenuState(g);
-	}else if(currentState == GAME_STATE){
-		drawGameState(g);
-	}else if(currentState == END_STATE){
-		drawEndState(g);
-	}
-	if(currentState == MENU_STATE){
-		updateMenuState();
-	}else if(currentState == GAME_STATE){
-		updateGameState();
-	}else if(currentState == END_STATE){
-		updateEndState();
-	}
+
+	public void paintComponent(Graphics g) {
+		if (currentState == MENU_STATE) {
+			drawMenuState(g);
+		} else if (currentState == GAME_STATE) {
+			drawGameState(g);
+		} else if (currentState == END_STATE) {
+			drawEndState(g);
+		}
+		if (currentState == MENU_STATE) {
+			updateMenuState();
+		} else if (currentState == GAME_STATE) {
+			updateGameState();
+		} else if (currentState == END_STATE) {
+			updateEndState();
+		}
 
 	}
-@Override
-public void keyTyped(KeyEvent e) {
-	// TODO Auto-generated method stub
-	System.out.println("hi");
-}
-@Override
-public void keyPressed(KeyEvent e) {
-	// TODO Auto-generated method stub
-	System.out.println("hi");
-}
-@Override
-public void keyReleased(KeyEvent e) {
-	// TODO Auto-generated method stub
-	System.out.println("hi");
-	
-}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("hi");
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			currentState = GAME_STATE;
+			if (currentState > END_STATE) {
+				currentState = MENU_STATE;
+			}
+		}
+		if(currentState == GAME_STATE){
+		switch (key){
+		case KeyEvent.VK_LEFT:
+			league.startMoveLeft();
+			break;
+		case KeyEvent.VK_RIGHT:
+			league.startMoveRight();
+			break;
+		case KeyEvent.VK_UP:
+			league.startMoveUp();
+			break;
+		case KeyEvent.VK_DOWN:
+			league.startMoveDown();
+		
+		}
+		
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		int key = e.getKeyCode();
+		if(currentState == GAME_STATE){
+			switch (key){
+			case KeyEvent.VK_LEFT:
+				league.endMoveLeft();
+				break;
+			case KeyEvent.VK_RIGHT:
+				league.endMoveRight();
+				break;
+			case KeyEvent.VK_UP:
+				league.endMoveUp();
+				break;
+			case KeyEvent.VK_DOWN:
+				league.endMoveDown();
+			
+			}
+			
+			}
+
+	}
 }
