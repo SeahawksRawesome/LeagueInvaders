@@ -19,12 +19,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font titleFont;
 	Font titleFont2;
 	Rocketship league = new Rocketship(250, 700, 50, 50);
+	ObjectManager manage = new ObjectManager();
 	
 
 	GamePanel() {
 		time = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		titleFont2 = new Font("Arial", Font.PLAIN, 20);
+		manage.addObject(league); 
+
 	}
 
 	@Override
@@ -49,7 +52,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
-		league.update();
+		manage.update();
+		manage.manageEnemies();
 	}
 
 	void updateEndState() {
@@ -68,7 +72,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void drawGameState(Graphics g) {
-		league.draw(g);
+		manage.draw(g);
 	}
 
 	void drawEndState(Graphics g) {
@@ -103,7 +107,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("hi");
 	}
 
 	@Override
@@ -128,8 +131,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			break;
 		case KeyEvent.VK_DOWN:
 			league.startMoveDown();
+			break;
+		case KeyEvent.VK_SPACE:
+			manage.addObject(new Projectile(league.x+20, league.y-10, 10, 10));
 		
 		}
+		
 		
 		}
 	}

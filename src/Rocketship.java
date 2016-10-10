@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Rocketship extends GameObject {
-	int speed;
+	 
 	int moveValue;
 	int moveValue2;
 
