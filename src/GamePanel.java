@@ -20,13 +20,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	Font titleFont2;
 	Rocketship league = new Rocketship(250, 700, 50, 50);
 	ObjectManager manage = new ObjectManager();
-	
 
 	GamePanel() {
 		time = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		titleFont2 = new Font("Arial", Font.PLAIN, 20);
-		manage.addObject(league); 
+		manage.addObject(league);
 
 	}
 
@@ -52,8 +51,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	void updateGameState() {
+		manage.checkCollision();
 		manage.update();
 		manage.manageEnemies();
+		if (!league.isAlive) {
+			currentState = END_STATE;
+		}
 	}
 
 	void updateEndState() {
@@ -82,7 +85,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		g.setFont(titleFont);
 		g.drawString("GAME OVER!!", 60, 100);
 		g.setFont(titleFont2);
-		g.drawString("You Killed zero aliens", 130, 300);
+		g.drawString("You Killed " + manage.getScore() + " aliens", 130, 300);
 		g.drawString("Press BACKSPACE to Resart", 100, 500);
 	}
 
@@ -118,34 +121,36 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState = MENU_STATE;
 			}
 		}
-		if(currentState == GAME_STATE){
-		switch (key){
-		case KeyEvent.VK_LEFT:
-			league.startMoveLeft();
-			break;
-		case KeyEvent.VK_RIGHT:
-			league.startMoveRight();
-			break;
-		case KeyEvent.VK_UP:
-			league.startMoveUp();
-			break;
-		case KeyEvent.VK_DOWN:
-			league.startMoveDown();
-			break;
-		case KeyEvent.VK_SPACE:
-			manage.addObject(new Projectile(league.x+20, league.y-10, 10, 10));
-		
+		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			currentState = MENU_STATE;
 		}
-		
-		
+		if (currentState == GAME_STATE) {
+			switch (key) {
+			case KeyEvent.VK_LEFT:
+				league.startMoveLeft();
+				break;
+			case KeyEvent.VK_RIGHT:
+				league.startMoveRight();
+				break;
+			case KeyEvent.VK_UP:
+				league.startMoveUp();
+				break;
+			case KeyEvent.VK_DOWN:
+				league.startMoveDown();
+				break;
+			case KeyEvent.VK_SPACE:
+				manage.addObject(new Projectile(league.x + 20, league.y - 10, 10, 10));
+
+			}
+
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-		if(currentState == GAME_STATE){
-			switch (key){
+		if (currentState == GAME_STATE) {
+			switch (key) {
 			case KeyEvent.VK_LEFT:
 				league.endMoveLeft();
 				break;
@@ -157,10 +162,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				break;
 			case KeyEvent.VK_DOWN:
 				league.endMoveDown();
-			
+
 			}
-			
-			}
+
+		}
 
 	}
 }

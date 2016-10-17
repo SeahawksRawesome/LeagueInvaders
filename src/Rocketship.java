@@ -2,22 +2,22 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Rocketship extends GameObject {
-	 
+
 	int moveValue;
 	int moveValue2;
 
 	Rocketship(int x, int y, int width, int height) {
+		super();
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.width = width;
 		speed = 1;
-		
 
 	}
 
 	void update() {
-		
+		super.update();
 		x = x + moveValue;
 		y = y - moveValue2;
 	}
@@ -35,27 +35,31 @@ public class Rocketship extends GameObject {
 
 	public void endMoveLeft() {
 		moveValue = 0;
-		
+
 	}
-	public void startMoveRight(){
+
+	public void startMoveRight() {
 		moveValue = speed;
 	}
-	public void endMoveRight(){
+
+	public void endMoveRight() {
 		moveValue = 0;
 	}
-	public void endMoveUp(){
+
+	public void endMoveUp() {
 		moveValue2 = 0;
 	}
-	public void endMoveDown(){
+
+	public void endMoveDown() {
 		moveValue2 = 0;
 	}
-	public void startMoveDown(){
+
+	public void startMoveDown() {
 		moveValue2 = -speed;
 	}
-	public void startMoveUp(){
+
+	public void startMoveUp() {
 		moveValue2 = speed;
 	}
-	
-	
-	
+
 }
