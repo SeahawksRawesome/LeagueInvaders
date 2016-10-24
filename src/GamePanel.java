@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -18,15 +19,32 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int currentState = MENU_STATE;
 	Font titleFont;
 	Font titleFont2;
-	Rocketship league = new Rocketship(250, 700, 50, 50);
+	Rocketship league;
 	ObjectManager manage = new ObjectManager();
+	public static BufferedImage alienImg;
+	public static BufferedImage rocketImg;
+	public static BufferedImage bulletImg;
 
 	GamePanel() {
+
+		/*
+		 * try { alienImg =
+		 * ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
+		 * rocketImg =
+		 * ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
+		 * bulletImg =
+		 * ImageIO.read(this.getClass().getResourceAsStream("bullet.png")); }
+		 * catch (IOException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); }
+		 */
+
+		league = new Rocketship(250, 700, 50, 50);
+
 		time = new Timer(1000 / 60, this);
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		titleFont2 = new Font("Arial", Font.PLAIN, 20);
-		manage.addObject(league);
 
+		manage.addObject(league);
 	}
 
 	@Override
@@ -56,6 +74,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		manage.manageEnemies();
 		if (!league.isAlive) {
 			currentState = END_STATE;
+			manage.reset();
+			league = new Rocketship(250, 700, 50, 50);
+			manage.addObject(league);
 		}
 	}
 
