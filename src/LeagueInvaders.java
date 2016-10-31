@@ -14,8 +14,9 @@ public class LeagueInvaders {
 	// If you don't know what that means, refer to level 1.
 
 	public static void main(String[] args) {
-
+System.out.println(args[0]);
 		LeagueInvaders m = new LeagueInvaders();
+		m.setup();
 
 	}
 
@@ -26,6 +27,9 @@ public class LeagueInvaders {
 		f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f1.setSize(height, width);
 		invader = new GamePanel();
+		
+	}
+	void setup(){
 		f1.add(invader);
 		invader.startGame();
 		f1.addKeyListener(invader);

@@ -6,7 +6,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -27,24 +29,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	GamePanel() {
 
-		/*
-		 * try { alienImg =
-		 * ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
-		 * rocketImg =
-		 * ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
-		 * bulletImg =
-		 * ImageIO.read(this.getClass().getResourceAsStream("bullet.png")); }
-		 * catch (IOException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 */
+		
+		  try { 
+			  alienImg = ImageIO.read(this.getClass().getResourceAsStream("alien.png"));
+	rocketImg =  ImageIO.read(this.getClass().getResourceAsStream("rocket.png"));
+		  bulletImg =  ImageIO.read(this.getClass().getResourceAsStream("bullet.png")); }
+		  catch (IOException e) { // TODO Auto-generated catch block
+		  e.printStackTrace(); }
+		 
 
 		league = new Rocketship(250, 700, 50, 50);
 
-		time = new Timer(1000 / 60, this);
+		
 		titleFont = new Font("Arial", Font.PLAIN, 48);
 		titleFont2 = new Font("Arial", Font.PLAIN, 20);
 
 		manage.addObject(league);
+		time = new Timer(1000 / 60, this);
 	}
 
 	@Override
@@ -77,6 +78,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			manage.reset();
 			league = new Rocketship(250, 700, 50, 50);
 			manage.addObject(league);
+			
 		}
 	}
 
@@ -142,8 +144,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				currentState = MENU_STATE;
 			}
 		}
+		
 		if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 			currentState = MENU_STATE;
+			manage.setScore(0);
 		}
 		if (currentState == GAME_STATE) {
 			switch (key) {

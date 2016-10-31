@@ -11,13 +11,13 @@ public class Rocketship extends GameObject {
 		this.y = y;
 		this.height = height;
 		this.width = width;
-		speed = 1;
+		speed = 3;
 
 	}
 
 	void update() {
 		super.update();
-		x = x + moveValue;
+		x = x + moveValue; 
 		y = y - moveValue2;
 	}
 
