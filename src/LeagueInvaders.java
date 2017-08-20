@@ -14,7 +14,7 @@ public class LeagueInvaders {
 	// If you don't know what that means, refer to level 1.
 
 	public static void main(String[] args) {
-System.out.println(args[0]);
+
 		LeagueInvaders m = new LeagueInvaders();
 		m.setup();
 
